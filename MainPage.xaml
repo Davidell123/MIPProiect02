@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:MIPProiect02.ViewModels"
+             xmlns:models="clr-namespace:MIPProiect02.Models"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             x:Class="MIPProiect02.MainPage"
+             x:Name="thisPage"
+             x:DataType="viewmodels:MainViewModel"
+             Title="Lista Sarcini">
+
+    <Grid RowDefinitions="Auto, *" BackgroundColor="#F5F5F5">
+        <SearchBar Grid.Row="0"
+                   Placeholder="Caută..."
+                   Margin="10"
+                   SearchCommand="{Binding SearchTasksCommand}"
+                   SearchCommandParameter="{Binding Source={RelativeSource Self}, Path=Text}" />
+
+        <RefreshView Grid.Row="1" IsRefreshing="{Binding IsRefreshing}" Command="{Binding LoadTasksCommand}">
+            <CollectionView ItemsSource="{Binding Items}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:TodoItem">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Șterge" 
+                                               BackgroundColor="Red" 
+                                               Command="{Binding BindingContext.DeleteTaskCommand, Source={x:Reference Name=thisPage}}"
+                                               CommandParameter="{Binding .}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Border Margin="10,5" Padding="15">
+                                <HorizontalStackLayout Spacing="15">
+                                    <CheckBox IsChecked="{Binding IsCompleted}">
+                                        <CheckBox.Behaviors>
+                                            <toolkit:EventToCommandBehavior
+                                                EventName="CheckedChanged"
+                                                Command="{Binding BindingContext.ToggleStatusCommand, Source={x:Reference Name=thisPage}}"
+                                                CommandParameter="{Binding .}" />
+                                        </CheckBox.Behaviors>
+                                    </CheckBox>
+                                    <Label Text="{Binding Title}" VerticalOptions="Center" FontSize="18" />
+                                </HorizontalStackLayout>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </RefreshView>
+
+        <Button Grid.Row="1" Text="+" Command="{Binding GoToAddTaskCommand}"
+                HorizontalOptions="End" VerticalOptions="End" Margin="20"
+                HeightRequest="60" WidthRequest="60" CornerRadius="30"
+                BackgroundColor="#512BD4" TextColor="White" />
+    </Grid>
+</ContentPage>
