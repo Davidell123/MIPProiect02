@@ -1,0 +1,12 @@
+SCOPUL APLICATIEI To-Do List
+
+Aceasta aplicatie este un instrument de gestionare a productivitatii personale (To-Do List), dezvoltata ca proiect pentru disciplina MIP.
+
+Principalele obiective si functionalitati implementate sunt:
+1. Organizarea sarcinilor: Utilizatorul poate adauga activitati noi prin intermediul unei pagini dedicate.
+2. Persistenta datelor: Toate sarcinile sunt salvate local pe dispozitiv intr-o baza de date SQLite, astfel incat datele nu se pierd la inchiderea aplicatiei.
+3. Arhitectura MVVM: Aplicatia respecta modelul Model-View-ViewModel pentru o separare clara a logicii de interfata.
+4. Gestiunea starii: Utilizatorul poate marca sarcinile ca fiind finalizate (Checkbox) sau le poate sterge folosind gesturi de glisare (SwipeView).
+5. Filtrare rapida: Interfata include un SearchBar pentru cautarea sarcinilor in timp real.
+
+Tehnologii utilizate: .NET 9, MAUI, SQLite-net-pcl, CommunityToolkit.Mvvm.
